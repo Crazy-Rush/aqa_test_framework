@@ -18,7 +18,7 @@ class RequestsForSite:
     def get_list_resource(self) -> Any:
         return self.request.get(url=f"{self.base_url}{unknown_path}")
 
-    def get_single_resource(self, user: int = 2) -> Any:
+    def get_single_resource(self, user: int) -> Any:
         return self.request.get(url=f"{self.base_url}{unknown_path}/{user}")
 
     def create_user(self, payload: dict) -> Any:

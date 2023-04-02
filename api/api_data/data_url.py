@@ -1,0 +1,5 @@
+base_url = "https://reqres.in"
+users_path = "/api/users"
+unknown_path = "/api/unknown"
+register_path = "/api/register"
+login_path = "/api/login"

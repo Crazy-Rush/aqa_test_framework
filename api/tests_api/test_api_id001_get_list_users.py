@@ -9,4 +9,4 @@ from api.api_steps.steps_api import ApiSteps
 @pytest.mark.api
 def test_get_list_users():
     # Проверка получения статус кода 200 для списка пользователей
-    ApiSteps().check_list_users_status_code()
+    ApiSteps().check_list_users_status_code(page=2)

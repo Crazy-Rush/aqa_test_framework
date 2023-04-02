@@ -9,4 +9,4 @@ from api.api_steps.steps_api import ApiSteps
 @pytest.mark.api
 def test_api_delay_response():
     # Проверка получения статус кода 200 при отсрочке запроса
-    ApiSteps().check_delayed_response()
+    ApiSteps().check_delayed_response(delay=3)

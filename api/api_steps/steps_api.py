@@ -13,38 +13,37 @@ class ApiSteps:
         self.data = DataClient()
 
     @allure.step("Проверка статус кода list_users")
-    def check_list_users_status_code(self) -> Any:
-        request = self.request.get_list_users()
+    def check_list_users_status_code(self, page: int = None) -> Any:
+        request = self.request.get_request_users_path(f"?page={page}")
         CommonChecker.check_status_code_ok(request, assertion_message="Не удалось получить информацию о пользователях")
         return request
 
     @allure.step("Проверка статус кода single_user")
-    def check_single_user_status_code(self, user) -> Any:
-        request = self.request.get_single_user(user)
+    def check_single_user_status_code(self, user: int = None) -> Any:
+        request = self.request.get_request_users_path(f"/{user}")
         CommonChecker.check_status_code_ok(request, assertion_message="Не удалось получить информацию о пользователе")
-        return request
 
     @allure.step("Проверка статус кода single_user_not_found")
-    def check_single_user_not_found_status_code(self, user) -> Any:
-        request = self.request.get_single_user(user)
+    def check_single_user_not_found_status_code(self, user: int = None) -> Any:
+        request = self.request.get_request_users_path(f"/{user}")
         CommonChecker.check_status_code_404(
             request, assertion_message="Удалось найти пользователя с несуществующим номером"
         )
 
     @allure.step("Проверка статус кода list_resource")
     def check_list_resource_status_code(self) -> Any:
-        request = self.request.get_list_resource()
-        CommonChecker.check_status_code_ok(request, assertion_message="Не удалось получить список")
+        request = self.request.get_resource_unknown_path()
+        CommonChecker.check_status_code_ok(request, assertion_message="Не удалось получить список предметов")
 
     @allure.step("Проверка статус кода single_resource")
-    def check_single_resource_status_code(self) -> Any:
-        request = self.request.get_single_resource(user=2)
-        CommonChecker.check_status_code_ok(request, assertion_message="Не удалось получить элемент списка")
+    def check_single_resource_status_code(self, user: int) -> Any:
+        request = self.request.get_resource_unknown_path(params=f"/{user}")
+        CommonChecker.check_status_code_ok(request, assertion_message="Не удалось получить элемент списка предметов")
 
     @allure.step("Проверка статус кода single_resource_not_found")
-    def check_single_resource_not_found_status_code(self) -> Any:
-        request = self.request.get_single_resource(user=23)
-        CommonChecker.check_status_code_404(request, assertion_message="Удалось получить элемент списка")
+    def check_single_resource_not_found_status_code(self, user: int) -> Any:
+        request = self.request.get_resource_unknown_path(params=f"/{user}")
+        CommonChecker.check_status_code_404(request, assertion_message="Удалось получить элемент списка предметов")
 
     @allure.step("Проверка статус кода create_new_user")
     def check_create_new_user(self) -> Any:
@@ -56,13 +55,13 @@ class ApiSteps:
     @allure.step("Проверка статус кода full_update_user")
     def check_full_update_user(self) -> Any:
         payload = self.data.update_morpheus()
-        request = self.request.full_update_user(payload)
+        request = self.request.put_update_user(payload)
         CommonChecker.check_status_code_ok(request, assertion_message="Не удалось обновить пользователя")
 
     @allure.step("Проверка статус кода update_user")
     def check_update_user(self) -> Any:
         payload = self.data.update_morpheus()
-        request = self.request.update_user_info(payload)
+        request = self.request.patch_update_user(payload)
         CommonChecker.check_status_code_ok(request, assertion_message="Не удалось обновить пользователя")
 
     @allure.step("Проверка статус кода delete_user")
@@ -97,6 +96,6 @@ class ApiSteps:
         CommonChecker.check_status_code_400(request, assertion_message="Удалось авторизоваться с неверными данными")
 
     @allure.step("Проверка статус кода delayed_response")
-    def check_delayed_response(self) -> Any:
-        request = self.request.delayed_response()
+    def check_delayed_response(self, delay: int = None) -> Any:
+        request = self.request.get_request_users_path(f"?delay={delay}")
         CommonChecker.check_status_code_ok(request, assertion_message="Не верно отправлен запрос")

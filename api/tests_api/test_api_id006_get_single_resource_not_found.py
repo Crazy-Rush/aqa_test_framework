@@ -9,4 +9,4 @@ from api.api_steps.steps_api import ApiSteps
 @pytest.mark.api
 def test_api_get_single_resource_not_found():
     # Проверка получения статус кода 404 для несуществующего предмета
-    ApiSteps().check_single_resource_not_found_status_code()
+    ApiSteps().check_single_resource_not_found_status_code(user=23)

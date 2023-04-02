@@ -9,25 +9,19 @@ class RequestsForSite:
         self.request = BaseRequests()
         self.base_url = base_url
 
-    def get_list_users(self, page: int = 2) -> Any:
-        return self.request.get(url=f"{self.base_url}{users_path}?page={page}")
+    def get_request_users_path(self, params: str = None) -> Any:
+        return self.request.get(url=f"{self.base_url}{users_path}{params}")
 
-    def get_single_user(self, user: int) -> Any:
-        return self.request.get(url=f"{self.base_url}{users_path}/{user}")
-
-    def get_list_resource(self) -> Any:
-        return self.request.get(url=f"{self.base_url}{unknown_path}")
-
-    def get_single_resource(self, user: int) -> Any:
-        return self.request.get(url=f"{self.base_url}{unknown_path}/{user}")
+    def get_resource_unknown_path(self, params: str = None) -> Any:
+        return self.request.get(url=f"{self.base_url}{unknown_path}{params}")
 
     def create_user(self, payload: dict) -> Any:
         return self.request.post(url=f"{self.base_url}{users_path}", json=payload)
 
-    def full_update_user(self, payload: dict, user: int = 2) -> Any:
+    def put_update_user(self, payload: dict, user: int = 2) -> Any:
         return self.request.put(url=f"{self.base_url}{users_path}/{user}", json=payload)
 
-    def update_user_info(self,  payload: dict, user: int = 2) -> Any:
+    def patch_update_user(self, payload: dict, user: int = 2) -> Any:
         return self.request.patch(url=f"{self.base_url}{users_path}/{user}", json=payload)
 
     def delete_user(self, user: int = 2) -> Any:
@@ -39,5 +33,3 @@ class RequestsForSite:
     def login_user(self, payload: dict) -> Any:
         return self.request.post(url=f"{self.base_url}{login_path}", json=payload)
 
-    def delayed_response(self, delay: int = 3) -> Any:
-        return self.request.get(url=f"{self.base_url}{users_path}?delay={delay}")

@@ -8,7 +8,7 @@ from api.api_steps.steps_api import ApiSteps
 @allure.id("id003")
 @allure.title("id003 Проверка получения статус кода 404 для несуществующего пользователя")
 @pytest.mark.api
-@pytest.mark.parametrize("expect_user", users)
-def test_api_get_single_user_not_found(expect_user):
+@pytest.mark.parametrize("expected_user", users)
+def test_api_get_single_user_not_found(expected_user):
     # Проверка получения статус кода 404 для несуществующего пользователя
-    ApiSteps().check_single_user_not_found_status_code(user=23)
+    ApiSteps().check_single_user_not_found_status_code(expected_user)

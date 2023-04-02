@@ -1,1 +1,1 @@
-valid_users = [3, 4, 5, 6]
+valid_users = [2, 3, 4, 5]

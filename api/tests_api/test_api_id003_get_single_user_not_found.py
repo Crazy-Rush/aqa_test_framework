@@ -11,4 +11,4 @@ from api.api_steps.steps_api import ApiSteps
 @pytest.mark.parametrize("expect_user", users)
 def test_api_get_single_user_not_found(expect_user):
     # Проверка получения статус кода 404 для несуществующего пользователя
-    ApiSteps().check_single_user_not_found_status_code()
+    ApiSteps().check_single_user_not_found_status_code(user=23)

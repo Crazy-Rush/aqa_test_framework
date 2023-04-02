@@ -12,19 +12,13 @@ class RequestsForSite:
     def get_list_users(self, page: int = 2) -> Any:
         return self.request.get(url=f"{self.base_url}{users_path}?page={page}")
 
-    def get_single_user(self, user: int = 2) -> Any:
-        return self.request.get(url=f"{self.base_url}{users_path}/{user}")
-
-    def get_single_user_not_found(self, user: int = 23) -> Any:
+    def get_single_user(self, user: int) -> Any:
         return self.request.get(url=f"{self.base_url}{users_path}/{user}")
 
     def get_list_resource(self) -> Any:
         return self.request.get(url=f"{self.base_url}{unknown_path}")
 
     def get_single_resource(self, user: int = 2) -> Any:
-        return self.request.get(url=f"{self.base_url}{unknown_path}/{user}")
-
-    def get_single_resource_not_found(self, user: int = 23) -> Any:
         return self.request.get(url=f"{self.base_url}{unknown_path}/{user}")
 
     def create_user(self, payload: dict) -> Any:
@@ -39,16 +33,10 @@ class RequestsForSite:
     def delete_user(self, user: int = 2) -> Any:
         return self.request.delete(url=f"{self.base_url}{users_path}/{user}")
 
-    def register_successful(self, payload: dict) -> Any:
+    def register_user(self, payload: dict) -> Any:
         return self.request.post(url=f"{self.base_url}{register_path}", json=payload)
 
-    def register_unsuccessful(self, payload: dict) -> Any:
-        return self.request.post(url=f"{self.base_url}{register_path}", json=payload)
-
-    def login_successful(self, payload: dict) -> Any:
-        return self.request.post(url=f"{self.base_url}{login_path}", json=payload)
-
-    def login_unsuccessful(self,payload: dict) -> Any:
+    def login_user(self, payload: dict) -> Any:
         return self.request.post(url=f"{self.base_url}{login_path}", json=payload)
 
     def delayed_response(self, delay: int = 3) -> Any:

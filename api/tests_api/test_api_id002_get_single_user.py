@@ -11,4 +11,4 @@ from api.api_steps.steps_api import ApiSteps
 @pytest.mark.parametrize("expected_user", valid_users)
 def test_get_single_user(expected_user):
     # Проверка получения статус кода 200 для одного пользователя
-    ApiSteps().check_single_user_status_code()
+    ApiSteps().check_single_user_status_code(user=2)

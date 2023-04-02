@@ -19,14 +19,14 @@ class ApiSteps:
         return request
 
     @allure.step("Проверка статус кода single_user")
-    def check_single_user_status_code(self) -> Any:
-        request = self.request.get_single_user()
+    def check_single_user_status_code(self, user) -> Any:
+        request = self.request.get_single_user(user)
         CommonChecker.check_status_code_ok(request, assertion_message="Не удалось получить информацию о пользователе")
         return request
 
     @allure.step("Проверка статус кода single_user_not_found")
-    def check_single_user_not_found_status_code(self) -> Any:
-        request = self.request.get_single_user_not_found()
+    def check_single_user_not_found_status_code(self, user) -> Any:
+        request = self.request.get_single_user(user)
         CommonChecker.check_status_code_404(
             request, assertion_message="Удалось найти пользователя с несуществующим номером"
         )
@@ -38,12 +38,12 @@ class ApiSteps:
 
     @allure.step("Проверка статус кода single_resource")
     def check_single_resource_status_code(self) -> Any:
-        request = self.request.get_single_resource()
+        request = self.request.get_single_resource(user=2)
         CommonChecker.check_status_code_ok(request, assertion_message="Не удалось получить элемент списка")
 
     @allure.step("Проверка статус кода single_resource_not_found")
     def check_single_resource_not_found_status_code(self) -> Any:
-        request = self.request.get_single_resource_not_found()
+        request = self.request.get_single_resource(user=23)
         CommonChecker.check_status_code_404(request, assertion_message="Удалось получить элемент списка")
 
     @allure.step("Проверка статус кода create_new_user")
@@ -73,13 +73,13 @@ class ApiSteps:
     @allure.step("Проверка статус кода register_successful")
     def check_register_successful(self) -> Any:
         payload = self.data.register_successful_eve()
-        request = self.request.register_successful(payload)
+        request = self.request.register_user(payload)
         CommonChecker.check_status_code_ok(request, assertion_message="Не удалось зарегистрировать пользователя")
 
     @allure.step("Проверка статус кода register_unsuccessful")
     def check_register_unsuccessful(self) -> Any:
         payload = self.data.register_with_invalid_data()
-        request = self.request.register_unsuccessful(payload)
+        request = self.request.register_user(payload)
         CommonChecker.check_status_code_400(
             request, assertion_message="Удалось зарегистрировать пользователя с неверными данными"
         )
@@ -87,13 +87,13 @@ class ApiSteps:
     @allure.step("Проверка статус кода login_successful")
     def check_login_successful(self) -> Any:
         payload = self.data.login_successful_eve()
-        request = self.request.login_successful(payload)
+        request = self.request.login_user(payload)
         CommonChecker.check_status_code_ok(request, assertion_message="Не удалось авторизоваться")
 
     @allure.step("Проверка статус кода login_unsuccessful")
     def check_login_unsuccessful(self) -> Any:
         payload = self.data.login_with_invalid_data()
-        request = self.request.login_unsuccessful(payload)
+        request = self.request.login_user(payload)
         CommonChecker.check_status_code_400(request, assertion_message="Удалось авторизоваться с неверными данными")
 
     @allure.step("Проверка статус кода delayed_response")
